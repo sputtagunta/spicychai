@@ -1,0 +1,76 @@
+#spicychai_chat_div_button {
+    width:100px;
+    left:10px;
+    top:0;
+    border:5px solid #000000;
+    position:fixed;
+    cursor:pointer;
+    font-size: 20px;
+    padding:5px;
+    background-color:#FFFFFF;
+}
+
+#spicychai_chat_div {
+    bottom:0px; 
+    left:50px;
+    position:fixed;
+    cursor:pointer;
+    z-index: 100000000;
+}
+
+#spicychai_chat_div input[type=text] {
+width: 260px;
+padding: 5px;
+padding-right: 40px;
+outline: none;
+border: 2px solid #999999;
+border-radius: 5px;
+background-color: #FBFBFB;
+font-family: Cambria, Cochin, Georgia, serif;
+font-size: 16px;
+background-position: 270px 5px;
+background-image: url('../img/chat_icon.jpg');
+background-repeat: no-repeat;
+ 
+-webkit-transition: background-color .2s ease-in,
+                    background-position .2s ease-in,
+                    box-shadow .3s ease-in;
+ 
+-moz-transition: background-color .2s ease-in,
+                 background-position .2s ease-in,
+                 box-shadow .3s ease-in;
+ 
+-o-transition: background-color .2s ease-in,
+               background-position .2s ease-in,
+               box-shadow .3s ease-in;
+ 
+-ms-transition: background-color .2s ease-in,
+                background-position .2s ease-in,
+                box-shadow .3s ease-in;
+ 
+transition: background-color .2s ease-in,
+            background-position .2s ease-in,
+            box-shadow .3s ease-in;
+}
+
+#spicychai_msg_div {
+    width: 500px;
+    height: 100px;
+    bottom: 0px;
+    right:0px;
+    border: 1px solid #000000;
+    background-color: #000000;
+    color: #FFFFFF;
+    position:fixed;
+    font-size: 10px;
+    padding: 5px;
+
+}
+
+#spicychai_msg {
+    position: relative;
+    color: #FFFFFF !important;
+    font-size: 20px;
+    text-align:left;
+    padding: 5px;
+}
