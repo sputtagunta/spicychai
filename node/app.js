@@ -1,21 +1,26 @@
-var https = require('https');
-var fs = require('fs');
+// instantiate io handler
+var express = require("express")
+    , app = express()
+    , fs = require("fs")
 
+// ssl options
 var options = {
   key: fs.readFileSync('/home/ubuntu/spicychai_cert/spicychai.key'),
   cert: fs.readFileSync('/home/ubuntu/spicychai_cert/2b6910ed4a20d0.crt')
 };
 
-var app = https.createServer(options, handler).listen(9090);
-var io = require('socket.io').listen(app);
+var https = require("https").createServer(options, app)
+    , http = require("http").createServer(app)
+    , io = require("socket.io").listen(https)
 
-io.set('log level', 1);
+https.listen(443)
+http.listen(80)
 
-function handler(req,res){
-    console.log(req.url);
-    res.writeHead(200, {'Content-Type':'text/plain'});
-    res.end('');
-}
+// crypto modules
+var crypto = require("crypto")
+    , shasum = crypto.createHash("sha1");
+
+app.use(express.static("/home/ubuntu/spicychai/www"));
 
 io.sockets.on('connection',function(socket){
     console.log(socket.id);
@@ -24,4 +29,3 @@ io.sockets.on('connection',function(socket){
         socket.broadcast.emit("msg_" + data["path"], data["msg"]);
     });
 });
-
