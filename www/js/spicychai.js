@@ -5,9 +5,7 @@ spicy_socket.on('msg_' + window.location.host, function(data) {
 });
 
 function spicychai_push_msg(data) {
-    $.getJSON( "http://namey.muffinlabs.com/name.json", function( name ) {
-        toastr.info(data, "Spicy Chai");
-    });
+    toastr.info(data["payload"], data["name"]);
 }
 
 function spicychai_send_msg() {
@@ -51,6 +49,12 @@ function spicychai_inject_div() {
     });
     $("#spicychai_chai_input").focus( function() {
         $("#spicychai_chat_input").val("");
+    });
+
+    data = {};
+    data["info"] = window.location;
+    spicy_socket.emit("announce", data, function(msg) {
+        console.log(msg);
     });
 }
 

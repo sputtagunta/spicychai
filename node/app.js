@@ -20,12 +20,34 @@ http.listen(80)
 var crypto = require("crypto")
     , shasum = crypto.createHash("sha1");
 
+// define static pages
 app.use(express.static("/home/ubuntu/spicychai/www"));
 
+// add cross domain policy xml file
+app.get( "/crossdomain.xml", function ( req, res ) {
+    var xml = '<?xml version="1.0"?>\n<!DOCTYPE cross-domain-policy SYSTEM' +
+            ' "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">\n<cross-domain-policy>\n';
+    xml += '<allow-access-from domain="*" to-ports="*"/>\n';
+    xml += '</cross-domain-policy>\n';
+
+    req.setEncoding('utf8');
+    res.writeHead( 200, {'Content-Type': 'text/xml'} );
+    res.end( xml );
+});
+
+io.set('log level', 1);
+
+// define socket communication
 io.sockets.on('connection',function(socket){
-    console.log(socket.id);
+   
+    socket.on("join", function(data, fn) {
+        console.log("joining room:" + data);
+        socket.join(data);
+        fn({"joined" : data});
+    });
+ 
     socket.on("send_msg", function(data) {
-        console.log("received msg: " + data);
-        socket.broadcast.emit("msg_" + data["path"], data["msg"]);
+        console.log('broadcasting to:' + data["path"]);
+        io.sockets.in(data["path"]).emit("messages", data);
     });
 });
